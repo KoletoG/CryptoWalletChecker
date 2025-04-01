@@ -27,7 +27,7 @@ namespace CryptoWalletChecker
                 ButtonRegister.IsVisible = false;
                 sumInput.IsVisible = false;
                 WalletExistLabel.IsVisible = true;
-                WalletExistLabel.Text = $"Wallet {textInput.Text} was already registered, sum of transaction:";
+                WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
                 WalletExistLabelSum.Text=$"{GetTransactionSum(textInput.Text)} coins";
                 WalletExistLabelSum.IsVisible = true;
                 textInput.Text = "";
