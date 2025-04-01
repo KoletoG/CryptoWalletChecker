@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoWalletChecker.MainPage">
 
-    <VerticalStackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
-        <Label Text="Enter wallet address:" FontSize="18"/>
-        <Label x:Name="ShowOutput"  Text="" FontSize="18"/>
+    <VerticalStackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center" x:Name="ContentStart">
+        <Label x:Name="EnterWalletLabel" Text="Enter wallet address:" FontSize="18"/>
         <Entry x:Name="textInput" WidthRequest="350" Keyboard="Text" MaxLength="40" Placeholder="Enter wallet address..." />
-        <HorizontalStackLayout Spacing="50" Padding="20">
-            <Button x:Name="ButtonRegister" Text="Register a donation" IsVisible="False"/>
-            <Button x:Name="ButtonCheck" Text="Check if wallet exists" Clicked="OnWalletCheck"/>
-        </HorizontalStackLayout>
+        <Label x:Name="EnterSumLabel"  Text="" IsVisible="False" FontSize="16"/>
+        <Label x:Name="WalletExistLabel"  Text="" IsVisible="False" FontSize="20" TextColor="Red"/>
+        <Entry x:Name="sumInput" WidthRequest="350" Keyboard="Numeric" MaxLength="40" Placeholder="Enter Sum to register..." IsVisible="False" />
+        <Button x:Name="ButtonRegister" Text="Register a donation" IsVisible="False"/>
+        <Button x:Name="ButtonCheck" Text="Check if wallet exists" Clicked="OnWalletCheck"/>
     </VerticalStackLayout>
 </ContentPage>
