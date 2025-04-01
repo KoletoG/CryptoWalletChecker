@@ -19,13 +19,14 @@ namespace CryptoWalletChecker
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {
+            WalletExistLabel.IsVisible = false;
             if (IsWalletExists(textInput.Text))
             {
-                ButtonCheck.IsVisible = false;
-                textInput.IsVisible = false;
-                EnterWalletLabel.IsVisible = false;
+                EnterSumLabel.IsVisible = false;
+                ButtonRegister.IsVisible = false;
+                sumInput.IsVisible = false;
                 WalletExistLabel.IsVisible = true;
-                WalletExistLabel.Text = $"Wallet has had transactions registered, sum of all transactions: {GetTransactionSum(textInput.Text)}";
+                WalletExistLabel.Text = $"Wallet has had transactions registered, sum of transaction: \n {GetTransactionSum(textInput.Text)}";
             }
             else
             {
@@ -37,20 +38,44 @@ namespace CryptoWalletChecker
                 EnterWalletLabel.IsVisible = false;
                 EnterSumLabel.Text = $"Do you want to register transaction for \n {textInput.Text}";
             }
-            DisplayAlert("Input Received", $"You entered: {textInput.Text}", "OK");
         }
         private string GetTransactionSum(string wallet)
         {
-            string[] line = File.ReadLines(@"..\..\wallets.txt").Where(x => x == wallet).Single().Split(' ');
-            return line[1];
+            using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    if (streamReader.ReadLine() == wallet)
+                    {
+                        return streamReader.ReadLine() ?? "0";
+                    }
+                }
+                return null;
+            }
         }
         private void OnRegister(object sender, EventArgs e)
         {
+            WriteToFile(sumInput.Text, textInput.Text);
+            ButtonCheck.IsVisible = true;
+            textInput.IsVisible = true;
+            EnterWalletLabel.IsVisible = true;
+            EnterSumLabel.IsVisible = false;
+            ButtonRegister.IsVisible = false;
+            sumInput.IsVisible = false;
+            textInput.Text = "";
+            DisplayAlert("TEST","TEST","Test");
         }
         private bool IsWalletExists(string wallet)
         {
             return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
         }
+        private void WriteToFile(string number, string wallet)
+        {
+            using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt",true))
+            {
+                streamWriter.WriteLine(wallet);
+                streamWriter.WriteLine(number);
+            }
+        }
     }
-
 }
