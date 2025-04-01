@@ -1,4 +1,9 @@
-﻿using System.Runtime.InteropServices.Marshalling;
+﻿using System.Collections.Immutable;
+using System.Drawing;
+using System.Runtime.InteropServices.Marshalling;
+using Microsoft.Maui.Graphics.Text;
+using Color = Microsoft.Maui.Graphics.Color;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace CryptoWalletChecker
 {
@@ -14,26 +19,22 @@ namespace CryptoWalletChecker
                 Console.WriteLine("Wallets.txt has been created");
             }
         }
-
-        private void OnSubmitClicked(object sender, EventArgs e)
+        private void OnWalletCheck(object sender, EventArgs e)
         {
-            string userInput = textInput.Text;
-            DisplayAlert("Input Received", $"You entered: {userInput}", "OK");
+            if (IsWalletExists(textInput.Text)) 
+            {
+                
+            }
+            else
+            {
+
+            }
+            ButtonRegister.IsVisible = true;
+                DisplayAlert("Input Received", $"You entered: {textInput.Text}", "OK");
         }
         private bool IsWalletExists(string wallet)
         {
-            bool exists = false;
-            using (StreamReader str = new StreamReader(@"..\..\wallets.txt"))
-            {
-                while (!str.EndOfStream) 
-                {
-                    if (str.ReadLine() == wallet)
-                    {
-                        exists = true;
-                    }
-                }
-            }
-            return exists;
+            return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
         }
     }
 
