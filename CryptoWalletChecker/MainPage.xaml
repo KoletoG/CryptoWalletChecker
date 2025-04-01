@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoWalletChecker.MainPage">
 
-    <VerticalStackLayout Padding="20">
-        <Label Text="Enter text:" FontSize="18"/>
+    <VerticalStackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="Enter wallet address:" FontSize="18"/>
 
-        <Entry x:Name="textInput" Placeholder="Type something..." />
+        <Entry x:Name="textInput" WidthRequest="250" Keyboard="Text" MaxLength="40" Placeholder="Enter wallet address..." />
 
-        <Button Text="Submit" Clicked="OnSubmitClicked"/>
+        <Button Text="Check" Clicked="OnSubmitClicked"/>
     </VerticalStackLayout>
 
 </ContentPage>
