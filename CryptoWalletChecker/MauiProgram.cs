@@ -13,6 +13,7 @@ namespace CryptoWalletChecker
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Audiowide-Regular.ttf", "AudiowideRegular");
                 });
 
 #if DEBUG
