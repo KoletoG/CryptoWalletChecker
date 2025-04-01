@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoWalletChecker.MainPage">
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
-        <Label Text="CRYPTO TRANSACTIONS REGISTER SE" Padding="50" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" TextColor="Gold" FontSize="55" FontFamily="TomorrowBlack"></Label>
+        <Label Text="CRYPTO TRANSACTIONS REGISTER SE" Padding="10" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" TextColor="Gold" FontSize="55" FontFamily="TomorrowBlack"></Label>
         <VerticalStackLayout VerticalOptions="Center" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" x:Name="ContentStart">
             <Label x:Name="WalletExistLabel" FontFamily="TomorrowRegular"  Text="" IsVisible="False" HorizontalOptions="Center" FontSize="25" TextColor="Red"/>
             <Label x:Name="WalletExistLabelSum" HorizontalOptions="Center" FontFamily="AudiowideRegular"  Text="" IsVisible="False" FontSize="25" TextColor="Red"/>
             <Label x:Name="SuccessLabel" Text="Transaction registered successfully!" Margin="20" IsVisible="False" FontFamily="AudiowideRegular" TextColor="GreenYellow" FontSize="30"></Label>
-            <Label x:Name="EnterWalletLabel" WidthRequest="350" TextColor="Gold" FontFamily="TomorrowRegular" Text="Enter wallet address:" FontSize="25"/>
+            <Label x:Name="EnterWalletLabel" TextColor="Gold" FontFamily="TomorrowRegular" HorizontalOptions="Center" Text="Enter wallet address:" FontSize="25"/>
             <Entry x:Name="textInput" Margin="20" FontSize="20" WidthRequest="350" FontFamily="TomorrowRegular" Keyboard="Text" MaxLength="40" Placeholder="Enter wallet address..." />
             <Label x:Name="EnterSumLabel" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>
             <Label x:Name="EnterSumLabel2" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>

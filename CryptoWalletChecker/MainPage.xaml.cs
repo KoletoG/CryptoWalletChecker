@@ -24,28 +24,37 @@ namespace CryptoWalletChecker
             WalletExistLabelSum.IsVisible = false;
             if (IsWalletExists(textInput.Text))
             {
-                EnterSumLabel.IsVisible = false;
-                EnterSumLabel2.IsVisible = false;
-                ButtonRegister.IsVisible = false;
-                sumInput.IsVisible = false;
-                WalletExistLabel.IsVisible = true;
+                
                 WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
                 WalletExistLabelSum.Text=$"{GetTransactionSum(textInput.Text)} coins";
-                WalletExistLabelSum.IsVisible = true;
-                textInput.Text = "";
+                WalletExistVisibilitySet();
             }
             else
             {
-                EnterSumLabel.IsVisible = true;
-                EnterSumLabel2.IsVisible = true;
-                ButtonRegister.IsVisible = true;
-                sumInput.IsVisible = true;
-                ButtonCheck.IsVisible = false;
-                textInput.IsVisible = false;
-                EnterWalletLabel.IsVisible = false;
+                WalletExistNotVisibilitySet();
                 EnterSumLabel.Text = $"Do you want to register transaction for";
                 EnterSumLabel2.Text = $"'{textInput.Text}'";
             }
+        }
+        private void WalletExistVisibilitySet()
+        {
+            EnterSumLabel.IsVisible = false;
+            EnterSumLabel2.IsVisible = false;
+            ButtonRegister.IsVisible = false;
+            sumInput.IsVisible = false;
+            WalletExistLabel.IsVisible = true;
+            WalletExistLabelSum.IsVisible = true;
+            textInput.Text = "";
+        }
+        private void WalletExistNotVisibilitySet()
+        {
+            EnterSumLabel.IsVisible = true;
+            EnterSumLabel2.IsVisible = true;
+            ButtonRegister.IsVisible = true;
+            sumInput.IsVisible = true;
+            ButtonCheck.IsVisible = false;
+            textInput.IsVisible = false;
+            EnterWalletLabel.IsVisible = false;
         }
         private string GetTransactionSum(string wallet)
         {
@@ -64,6 +73,11 @@ namespace CryptoWalletChecker
         private void OnRegister(object sender, EventArgs e)
         {
             WriteToFile(sumInput.Text, textInput.Text);
+            AfterRegisterClear();
+            
+        }
+        private void AfterRegisterClear()
+        {
             ButtonCheck.IsVisible = true;
             textInput.IsVisible = true;
             EnterWalletLabel.IsVisible = true;
