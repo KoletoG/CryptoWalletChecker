@@ -16,8 +16,10 @@ namespace CryptoWalletChecker
                     fonts.AddFont("Audiowide-Regular.ttf", "AudiowideRegular");
                     fonts.AddFont("Tomorrow-Black.ttf", "TomorrowBlack");
                     fonts.AddFont("Tomorrow-Regular.ttf", "TomorrowRegular");
-                });
-
+                })
+                .Services.AddSingleton<IMethodsServices,MethodsService>()
+                         .AddSingleton<MainPage>()
+                ;
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

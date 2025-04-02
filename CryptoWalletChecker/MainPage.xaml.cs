@@ -9,6 +9,16 @@ namespace CryptoWalletChecker
 {
     public partial class MainPage : ContentPage
     {
+        public VerticalStackLayout registerExistingWallet {  get; set; }
+        public VerticalStackLayout registerNonexistentWallet { get; set; }
+        public VerticalStackLayout checkExistingWallet { get; set; }
+        public Entry TextInput { get; set; } 
+        public Entry SumInput { get; set; }
+        public Label walletExistLabel { get; set; }
+        public Label walletExistLabelSum { get; set; }
+        public Label enterSumLabel { get; set; }
+        public Label enterSumLabel2 { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -16,6 +26,15 @@ namespace CryptoWalletChecker
             {
                 Console.WriteLine("Wallets.txt has been created");
             }
+            registerExistingWallet = this.RegisterExistingWallet;
+            registerNonexistentWallet = this.RegisterNonexistentWallet;
+            checkExistingWallet = this.CheckExistingWallet;
+            TextInput = this.textInput;
+            SumInput = this.sumInput;
+            walletExistLabel = this.WalletExistLabel;
+            walletExistLabelSum = this.WalletExistLabelSum;
+            enterSumLabel = this.EnterSumLabel;
+            enterSumLabel2 = this.EnterSumLabel2;
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {
