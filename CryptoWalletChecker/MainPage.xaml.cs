@@ -20,13 +20,9 @@ namespace CryptoWalletChecker
         private void OnWalletCheck(object sender, EventArgs e)
         {
             SuccessLabel.IsVisible = false;
-            WalletExistLabel.IsVisible = false;
-            WalletExistLabelSum.IsVisible = false;
             if (IsWalletExists(textInput.Text))
             {
                 RegisterExistingWallet.IsVisible = true;
-                WalletExistLabel.IsVisible=true;
-                WalletExistLabelSum.IsVisible=true;
                 WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
                 WalletExistLabelSum.Text=$"{GetTransactionSum(textInput.Text)} coins";
                 WalletExistVisibilitySet();
