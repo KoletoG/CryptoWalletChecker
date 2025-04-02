@@ -8,6 +8,8 @@ namespace CryptoWalletChecker
 {
     public interface IMethodsServices
     {
-        void WalletExistsLogic();
+        void WriteToFile(int number, string wallet);
+        int GetTransactionSum(string wallet);
+        bool IsWalletExists(string wallet);
     }
 }

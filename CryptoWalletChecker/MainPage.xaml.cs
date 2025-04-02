@@ -9,50 +9,40 @@ namespace CryptoWalletChecker
 {
     public partial class MainPage : ContentPage
     {
-        public VerticalStackLayout registerExistingWallet {  get; set; }
-        public VerticalStackLayout registerNonexistentWallet { get; set; }
-        public VerticalStackLayout checkExistingWallet { get; set; }
-        public Entry TextInput { get; set; } 
-        public Entry SumInput { get; set; }
-        public Label walletExistLabel { get; set; }
-        public Label walletExistLabelSum { get; set; }
-        public Label enterSumLabel { get; set; }
-        public Label enterSumLabel2 { get; set; }
-
-        public MainPage()
+        IMethodsServices methodsServices;
+        public MainPage(IMethodsServices methods)
         {
             InitializeComponent();
             using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt", true))
             {
                 Console.WriteLine("Wallets.txt has been created");
             }
-            registerExistingWallet = this.RegisterExistingWallet;
-            registerNonexistentWallet = this.RegisterNonexistentWallet;
-            checkExistingWallet = this.CheckExistingWallet;
-            TextInput = this.textInput;
-            SumInput = this.sumInput;
-            walletExistLabel = this.WalletExistLabel;
-            walletExistLabelSum = this.WalletExistLabelSum;
-            enterSumLabel = this.EnterSumLabel;
-            enterSumLabel2 = this.EnterSumLabel2;
+            methodsServices = methods;
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {
-            SuccessLabel.IsVisible = false;
-            if (IsWalletExists(textInput.Text))
+            if (textInput.Text.Length < 25 || textInput.Text.Length > 103)
             {
-                RegisterExistingWallet.IsVisible = true;
-                WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
-                WalletExistLabelSum.Text=$"{GetTransactionSum(textInput.Text)} coins";
-                RegisterNonexistentWallet.IsVisible = false;
-                CheckExistingWallet.IsVisible = false;
+                InvalidWalletLabel.IsVisible = true;
             }
             else
             {
-                CheckExistingWallet.IsVisible = false;
-                RegisterNonexistentWallet.IsVisible = true;
-                EnterSumLabel.Text = $"Enter sum to register transaction for";
-                EnterSumLabel2.Text = $"'{textInput.Text}'";
+                InvalidWalletLabel.IsVisible = false;
+                SuccessLabel.IsVisible = false;
+                if (methodsServices.IsWalletExists(textInput.Text))
+                {
+                    RegisterExistingWallet.IsVisible = true;
+                    CheckExistingWallet.IsVisible = false;
+                    WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
+                    WalletExistLabelSum.Text = $"{methodsServices.GetTransactionSum(textInput.Text)} coins";
+                }
+                else
+                {
+                    CheckExistingWallet.IsVisible = false;
+                    RegisterNonexistentWallet.IsVisible = true;
+                    EnterSumLabel.Text = $"Enter sum to register transaction for";
+                    EnterSumLabel2.Text = $"'{textInput.Text}'";
+                }
             }
         }
         private void OnYesConfirm(object sender, EventArgs e)
@@ -68,42 +58,14 @@ namespace CryptoWalletChecker
             RegisterExistingWallet.IsVisible = false;
             textInput.Text = string.Empty;
         }
-        private int GetTransactionSum(string wallet)
-        {
-            int sum = 0;
-            using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
-            {
-                while (!streamReader.EndOfStream)
-                {
-                    if (streamReader.ReadLine() == wallet)
-                    {
-                        sum += int.Parse(streamReader.ReadLine());
-                    }
-                }
-                return sum;
-            }
-        }
         private void OnRegister(object sender, EventArgs e)
         {
-            WriteToFile(sumInput.Text, textInput.Text);
+            methodsServices.WriteToFile(int.Parse(sumInput.Text), textInput.Text);
             CheckExistingWallet.IsVisible = true;
             RegisterNonexistentWallet.IsVisible = false;
+            SuccessLabel.IsVisible = true;
             textInput.Text = string.Empty;
             sumInput.Text = string.Empty;
-            SuccessLabel.IsVisible = true;
-            
-        }
-        private bool IsWalletExists(string wallet)
-        {
-            return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
-        }
-        private void WriteToFile(string number, string wallet)
-        {
-            using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt",true))
-            {
-                streamWriter.WriteLine(wallet);
-                streamWriter.WriteLine(number);
-            }
         }
     }
 }
