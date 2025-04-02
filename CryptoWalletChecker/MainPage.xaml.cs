@@ -15,9 +15,12 @@ namespace CryptoWalletChecker
         public MainPage(IMethodsServices methods, ILogger<MainPage> logger)
         {
             InitializeComponent();
-            using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt", true))
+            if (!File.Exists(@"..\..\wallets.txt"))
             {
-                Console.WriteLine("Wallets.txt has been created");
+                using (StreamWriter streamWriter = new(@"..\..\wallets.txt", true))
+                {
+                    Console.WriteLine("Wallets.txt has been created");
+                }
             }
             methodsServices = methods;
             _logger = logger;
