@@ -31,15 +31,13 @@ namespace CryptoWalletChecker
                 SuccessLabel.IsVisible = false;
                 if (methodsServices.IsWalletExists(textInput.Text))
                 {
-                    RegisterExistingWallet.IsVisible = true;
-                    CheckExistingWallet.IsVisible = false;
+                    methodsServices.SetVisibilityTrueFalse(RegisterExistingWallet, CheckExistingWallet);
                     WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
                     WalletExistLabelSum.Text = $"{methodsServices.GetTransactionSum(textInput.Text)} coins";
                 }
                 else
                 {
-                    CheckExistingWallet.IsVisible = false;
-                    RegisterNonexistentWallet.IsVisible = true;
+                    methodsServices.SetVisibilityTrueFalse(RegisterNonexistentWallet, CheckExistingWallet);
                     EnterSumLabel.Text = $"Enter sum to register transaction for";
                     EnterSumLabel2.Text = $"'{textInput.Text}'";
                 }
@@ -47,22 +45,19 @@ namespace CryptoWalletChecker
         }
         private void OnYesConfirm(object sender, EventArgs e)
         {
-            RegisterExistingWallet.IsVisible = false;
-            RegisterNonexistentWallet.IsVisible = true;
+            methodsServices.SetVisibilityTrueFalse(RegisterNonexistentWallet, RegisterExistingWallet);
             EnterSumLabel.Text = $"Enter sum to register transaction for";
             EnterSumLabel2.Text = $"'{textInput.Text}'";
         }
         private void OnNoConfirm(object sender, EventArgs e)
         {
-            CheckExistingWallet.IsVisible = true;
-            RegisterExistingWallet.IsVisible = false;
+            methodsServices.SetVisibilityTrueFalse(CheckExistingWallet, RegisterExistingWallet);
             textInput.Text = string.Empty;
         }
         private void OnRegister(object sender, EventArgs e)
         {
             methodsServices.WriteToFile(int.Parse(sumInput.Text), textInput.Text);
-            CheckExistingWallet.IsVisible = true;
-            RegisterNonexistentWallet.IsVisible = false;
+            methodsServices.SetVisibilityTrueFalse(CheckExistingWallet, RegisterNonexistentWallet);
             SuccessLabel.IsVisible = true;
             textInput.Text = string.Empty;
             sumInput.Text = string.Empty;

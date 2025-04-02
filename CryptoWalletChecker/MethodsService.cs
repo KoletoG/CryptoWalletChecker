@@ -34,6 +34,11 @@ namespace CryptoWalletChecker
                 return sum;
             }
         }
+        public void SetVisibilityTrueFalse(VerticalStackLayout vsl1, VerticalStackLayout vsl2)
+        {
+            vsl1.IsVisible = true;
+            vsl2.IsVisible = false;
+        }
         public bool IsWalletExists(string wallet)
         {
             return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
