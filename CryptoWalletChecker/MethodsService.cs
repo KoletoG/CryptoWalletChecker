@@ -27,7 +27,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(WriteToFile));
             }
         }
         public int GetTransactionSum(string wallet)
@@ -49,7 +49,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(GetTransactionSum));
                 throw new Exception(ex.ToString());
             }
         }
@@ -73,7 +73,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(IsWalletExists));
                 throw new Exception(ex.ToString());
             }
         }

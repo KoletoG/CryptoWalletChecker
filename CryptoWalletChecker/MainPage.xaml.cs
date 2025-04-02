@@ -26,6 +26,7 @@ namespace CryptoWalletChecker
         {
             try
             {
+                string input = textInput.Text;
                 if (textInput.Text.Length < 25 || textInput.Text.Length > 103)
                 {
                     InvalidWalletLabel.IsVisible = true;
@@ -37,20 +38,20 @@ namespace CryptoWalletChecker
                     if (methodsServices.IsWalletExists(textInput.Text))
                     {
                         methodsServices.SetVisibilityTrueFalse(RegisterExistingWallet, CheckExistingWallet);
-                        WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
-                        WalletExistLabelSum.Text = $"{methodsServices.GetTransactionSum(textInput.Text)} coins";
+                        WalletExistLabel.Text = $"Wallet '{input}' was already registered, sum of transaction:";
+                        WalletExistLabelSum.Text = $"{methodsServices.GetTransactionSum(input)} coins";
                     }
                     else
                     {
                         methodsServices.SetVisibilityTrueFalse(RegisterNonexistentWallet, CheckExistingWallet);
                         EnterSumLabel.Text = $"Enter sum to register transaction for";
-                        EnterSumLabel2.Text = $"'{textInput.Text}'";
+                        EnterSumLabel2.Text = $"'{input}'";
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(OnWalletCheck));
             }
         }
         private void OnYesConfirm(object sender, EventArgs e)
@@ -63,7 +64,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(OnYesConfirm));
             }
         }
         private void OnNoConfirm(object sender, EventArgs e)
@@ -75,7 +76,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(OnNoConfirm));
             }
         }
         private void OnRegister(object sender, EventArgs e)
@@ -90,7 +91,7 @@ namespace CryptoWalletChecker
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error in {MethodName}", nameof(OnRegister));
             }
         }
     }
