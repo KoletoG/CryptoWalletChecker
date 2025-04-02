@@ -5,14 +5,18 @@
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
         <Label Text="CRYPTO TRANSACTIONS REGISTER SE" Padding="10" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" TextColor="Gold" FontSize="55" FontFamily="TomorrowBlack"></Label>
         <VerticalStackLayout VerticalOptions="Center" IsVisible="True" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" x:Name="ContentStar">
-              <Label x:Name="SuccessLabel" Text="Transaction registered successfully!" Margin="20" IsVisible="False" FontFamily="AudiowideRegular" TextColor="GreenYellow" FontSize="30"></Label>
-            <Label x:Name="EnterWalletLabel" TextColor="Gold" FontFamily="TomorrowRegular" HorizontalOptions="Center" Text="Enter wallet address:" FontSize="25"/>
-            <Entry x:Name="textInput" Margin="20" FontSize="20" WidthRequest="350" FontFamily="TomorrowRegular" Keyboard="Text" MaxLength="40" Placeholder="Enter wallet address..." />
-            <Label x:Name="EnterSumLabel" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>
-            <Label x:Name="EnterSumLabel2" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>
-            <Entry x:Name="sumInput" Margin="20" WidthRequest="350" Keyboard="Numeric" FontFamily="TomorrowRegular" MaxLength="40" FontSize="20" Placeholder="Enter Sum to register..." IsVisible="False" />
-            <Button x:Name="ButtonRegister" BackgroundColor="Gold" WidthRequest="350" FontSize="20" Text="Register a donation" FontFamily="TomorrowRegular" Clicked="OnRegister" IsVisible="False"/>
-            <Button x:Name="ButtonCheck" FontSize="20" BackgroundColor="Gold" WidthRequest="350" FontFamily="TomorrowRegular" Text="Check if wallet exists" Clicked="OnWalletCheck"/>
+            <Label x:Name="SuccessLabel" Text="Transaction registered successfully!" Margin="20" IsVisible="False" FontFamily="AudiowideRegular" TextColor="GreenYellow" FontSize="30"></Label>
+            <VerticalStackLayout x:Name="RegisterNonexistentWallet" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" IsVisible="True" Spacing="10">
+                <Label x:Name="EnterSumLabel" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>
+                <Label x:Name="EnterSumLabel2" TextColor="Gold" Text="" IsVisible="False" HorizontalOptions="Center" FontFamily="TomorrowRegular" FontSize="25"/>
+                <Entry x:Name="sumInput" Margin="20" WidthRequest="350" Keyboard="Numeric" FontFamily="TomorrowRegular" MaxLength="40" FontSize="20" Placeholder="Enter Sum to register..." IsVisible="False" />
+                <Button x:Name="ButtonRegister" BackgroundColor="Gold" WidthRequest="350" FontSize="20" Text="Register a donation" FontFamily="TomorrowRegular" Clicked="OnRegister" IsVisible="False"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout x:Name="CheckExistingWallet" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" IsVisible="True" Spacing="10">
+                <Label x:Name="EnterWalletLabel" TextColor="Gold" FontFamily="TomorrowRegular" HorizontalOptions="Center" Text="Enter wallet address:" FontSize="25"/>
+                <Entry x:Name="textInput" Margin="20" FontSize="20" WidthRequest="350" FontFamily="TomorrowRegular" Keyboard="Text" MaxLength="40" Placeholder="Enter wallet address..." />
+                <Button x:Name="ButtonCheck" FontSize="20" BackgroundColor="Gold" WidthRequest="350" FontFamily="TomorrowRegular" Text="Check if wallet exists" Clicked="OnWalletCheck"/>
+            </VerticalStackLayout>
             <VerticalStackLayout x:Name="RegisterExistingWallet" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" IsVisible="False" Spacing="10">
                 <Label x:Name="WalletExistLabel" FontFamily="TomorrowRegular"  Text="" HorizontalOptions="Center" FontSize="25" TextColor="Red"/>
                 <Label x:Name="WalletExistLabelSum" HorizontalOptions="Center" FontFamily="AudiowideRegular"  Text="" FontSize="25" TextColor="Red"/>
