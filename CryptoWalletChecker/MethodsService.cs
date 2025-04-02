@@ -11,40 +11,71 @@ namespace CryptoWalletChecker
     public class MethodsService : IMethodsServices
     {
         private ILogger<MethodsService> _logger;
-        public MethodsService(Logger<MethodsService> logger) {
+        public MethodsService(Logger<MethodsService> logger)
+        {
             _logger = logger;
         }
         public void WriteToFile(int number, string wallet)
         {
-            using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt", true))
+            try
             {
-                streamWriter.WriteLine(wallet);
-                streamWriter.WriteLine(number);
+                using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt", true))
+                {
+                    streamWriter.WriteLine(wallet);
+                    streamWriter.WriteLine(number);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
             }
         }
         public int GetTransactionSum(string wallet)
         {
-            int sum = 0;
-            using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
+            try
             {
-                while (!streamReader.EndOfStream)
+                int sum = 0;
+                using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
                 {
-                    if (streamReader.ReadLine() == wallet)
+                    while (!streamReader.EndOfStream)
                     {
-                        sum += int.Parse(streamReader.ReadLine());
+                        if (streamReader.ReadLine() == wallet)
+                        {
+                            sum += int.Parse(streamReader.ReadLine());
+                        }
                     }
+                    return sum;
                 }
-                return sum;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new Exception(ex.ToString());
             }
         }
         public void SetVisibilityTrueFalse(VerticalStackLayout vsl1, VerticalStackLayout vsl2)
         {
-            vsl1.IsVisible = true;
-            vsl2.IsVisible = false;
+            try
+            {
+                vsl1.IsVisible = true;
+                vsl2.IsVisible = false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+            }
         }
         public bool IsWalletExists(string wallet)
         {
-            return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
+            try
+            {
+                return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new Exception(ex.ToString());
+            }
         }
     }
 }
