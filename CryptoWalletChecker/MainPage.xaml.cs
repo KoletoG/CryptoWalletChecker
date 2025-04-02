@@ -86,11 +86,18 @@ namespace CryptoWalletChecker
         {
             try
             {
-                methodsServices.WriteToFile(int.Parse(sumInput.Text), textInput.Text);
-                methodsServices.SetVisibilityTrueFalse(CheckExistingWallet, RegisterNonexistentWallet);
-                SuccessLabel.IsVisible = true;
-                textInput.Text = string.Empty;
-                sumInput.Text = string.Empty;
+                if(int.TryParse(textInput.Text, out int result))
+                {
+                    methodsServices.WriteToFile(result, textInput.Text);
+                    methodsServices.SetVisibilityTrueFalse(CheckExistingWallet, RegisterNonexistentWallet);
+                    SuccessLabel.IsVisible = true;
+                    textInput.Text = string.Empty;
+                    sumInput.Text = string.Empty;
+                }
+                else
+                {
+                    _logger.LogWarning("Invalid sum input: {SumInput}", sumInput.Text);
+                }
             }
             catch (Exception ex)
             {
