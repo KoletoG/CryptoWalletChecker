@@ -24,10 +24,15 @@ namespace CryptoWalletChecker
             WalletExistLabelSum.IsVisible = false;
             if (IsWalletExists(textInput.Text))
             {
-                
+                RegisterExistingWallet.IsVisible = true;
+                WalletExistLabel.IsVisible=true;
+                WalletExistLabelSum.IsVisible=true;
                 WalletExistLabel.Text = $"Wallet '{textInput.Text}' was already registered, sum of transaction:";
                 WalletExistLabelSum.Text=$"{GetTransactionSum(textInput.Text)} coins";
                 WalletExistVisibilitySet();
+                textInput.IsVisible = false;
+                EnterWalletLabel.IsVisible = false;
+                ButtonCheck.IsVisible = false;
             }
             else
             {
@@ -36,14 +41,20 @@ namespace CryptoWalletChecker
                 EnterSumLabel2.Text = $"'{textInput.Text}'";
             }
         }
+        private void OnYesConfirm(object sender, EventArgs e)
+        {
+
+        }
+        private void OnNoConfirm(object sender, EventArgs e)
+        {
+        
+        }
         private void WalletExistVisibilitySet()
         {
             EnterSumLabel.IsVisible = false;
             EnterSumLabel2.IsVisible = false;
             ButtonRegister.IsVisible = false;
             sumInput.IsVisible = false;
-            WalletExistLabel.IsVisible = true;
-            WalletExistLabelSum.IsVisible = true;
             textInput.Text = "";
         }
         private void WalletExistNotVisibilitySet()
