@@ -43,40 +43,33 @@ namespace CryptoWalletChecker
         }
         private void OnNoConfirm(object sender, EventArgs e)
         {
-        
+            CheckExistingWallet.IsVisible = true;
+            RegisterExistingWallet.IsVisible = false;
         }
-        private string GetTransactionSum(string wallet)
+        private int GetTransactionSum(string wallet)
         {
+            int sum = 0;
             using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
             {
                 while (!streamReader.EndOfStream)
                 {
                     if (streamReader.ReadLine() == wallet)
                     {
-                        return streamReader.ReadLine() ?? "0";
+                        sum += int.Parse(streamReader.ReadLine());
                     }
                 }
-                return null;
+                return sum;
             }
         }
         private void OnRegister(object sender, EventArgs e)
         {
             WriteToFile(sumInput.Text, textInput.Text);
-            AfterRegisterClear();
-            
-        }
-        private void AfterRegisterClear()
-        {
-            ButtonCheck.IsVisible = true;
-            textInput.IsVisible = true;
-            EnterWalletLabel.IsVisible = true;
-            EnterSumLabel.IsVisible = false;
-            ButtonRegister.IsVisible = false;
-            sumInput.IsVisible = false;
-            EnterSumLabel2.IsVisible = false;
+            CheckExistingWallet.IsVisible = true;
+            RegisterNonexistentWallet.IsVisible = false;
             textInput.Text = "";
             sumInput.Text = "";
             SuccessLabel.IsVisible = true;
+            
         }
         private bool IsWalletExists(string wallet)
         {
