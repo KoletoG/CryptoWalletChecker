@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
 
 namespace CryptoWalletChecker
 {
     public class MethodsService : IMethodsServices
     {
-        public MethodsService() {
+        private ILogger<MethodsService> _logger;
+        public MethodsService(Logger<MethodsService> logger) {
+            _logger = logger;
         }
         public void WriteToFile(int number, string wallet)
         {

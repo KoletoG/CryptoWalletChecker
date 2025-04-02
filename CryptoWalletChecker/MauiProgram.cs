@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace CryptoWalletChecker
 {
@@ -6,6 +7,9 @@ namespace CryptoWalletChecker
     {
         public static MauiApp CreateMauiApp()
         {
+            Log.Logger = new LoggerConfiguration()
+           .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+           .CreateLogger();
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -17,7 +21,11 @@ namespace CryptoWalletChecker
                     fonts.AddFont("Tomorrow-Black.ttf", "TomorrowBlack");
                     fonts.AddFont("Tomorrow-Regular.ttf", "TomorrowRegular");
                 })
-                .Services.AddSingleton<IMethodsServices,MethodsService>()
+                .Services.AddLogging(logging=>
+                {
+                    logging.AddSerilog();
+                })
+                         .AddSingleton<IMethodsServices,MethodsService>()
                          .AddSingleton<MainPage>()
                 ;
 #if DEBUG

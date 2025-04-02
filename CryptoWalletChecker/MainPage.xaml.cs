@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Drawing;
 using System.Runtime.InteropServices.Marshalling;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Graphics.Text;
 using Color = Microsoft.Maui.Graphics.Color;
 using Point = Microsoft.Maui.Graphics.Point;
@@ -9,8 +10,9 @@ namespace CryptoWalletChecker
 {
     public partial class MainPage : ContentPage
     {
-        IMethodsServices methodsServices;
-        public MainPage(IMethodsServices methods)
+        private IMethodsServices methodsServices;
+        private ILogger<MainPage> _logger;
+        public MainPage(IMethodsServices methods,ILogger<MainPage> logger)
         {
             InitializeComponent();
             using (StreamWriter streamWriter = new StreamWriter(@"..\..\wallets.txt", true))
@@ -18,6 +20,7 @@ namespace CryptoWalletChecker
                 Console.WriteLine("Wallets.txt has been created");
             }
             methodsServices = methods;
+            _logger = logger;
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {
