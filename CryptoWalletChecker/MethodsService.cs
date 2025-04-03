@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
+using Solnet.Wallet;
 
 namespace CryptoWalletChecker
 {
@@ -14,6 +15,23 @@ namespace CryptoWalletChecker
         public MethodsService(Logger<MethodsService> logger)
         {
             _logger = logger;
+        }
+        public bool IsSolanaWallet(string wallet)
+        {
+            if (wallet.Length != 44 || String.IsNullOrEmpty(wallet))
+            {
+                return false;
+            }
+            try
+            {
+                PublicKey publicKey = new PublicKey(wallet);
+                return publicKey.IsValid();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in {MethodName}", nameof(IsSolanaWallet));
+            }
+            return false;
         }
         public void WriteToFile(int number, string wallet)
         {

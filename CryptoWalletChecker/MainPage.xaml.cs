@@ -24,13 +24,14 @@ namespace CryptoWalletChecker
             }
             methodsServices = methods;
             _logger = logger;
+            _logger.LogInformation("Application has started.");
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {
             try
             {
                 string input = textInput.Text;
-                if (textInput.Text.Length < 25 || textInput.Text.Length > 103)
+                if (!methodsServices.IsSolanaWallet(input))
                 {
                     InvalidWalletLabel.IsVisible = true;
                 }
