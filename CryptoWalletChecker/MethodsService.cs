@@ -59,7 +59,7 @@ namespace CryptoWalletChecker
                     {
                         if (streamReader.ReadLine() == wallet)
                         {
-                            sum += int.Parse(streamReader.ReadLine());
+                            sum += int.Parse(streamReader.ReadLine() ?? "0");
                         }
                     }
                     return sum;
