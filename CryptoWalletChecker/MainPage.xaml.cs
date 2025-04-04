@@ -25,6 +25,7 @@ namespace CryptoWalletChecker
             methodsServices = methods;
             _logger = logger;
             _logger.LogInformation("Application has started.");
+            methodsServices.LoadWalletCache();
         }
         private void OnWalletCheck(object sender, EventArgs e)
         {

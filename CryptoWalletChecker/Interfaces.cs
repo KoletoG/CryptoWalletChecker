@@ -9,7 +9,8 @@ namespace CryptoWalletChecker
     public interface IMethodsServices
     {
         void WriteToFile(double number, string wallet);
-        double GetTransactionSum(string wallet);
+        double GetTransactionSum(string wallet); 
+        void LoadWalletCache();
         bool IsWalletExists(string wallet);
         void SetVisibilityTrueFalse(VerticalStackLayout vsl1, VerticalStackLayout vsl2);
         bool IsSolanaWallet(string wallet);

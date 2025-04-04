@@ -67,18 +67,7 @@ namespace CryptoWalletChecker
         {
             try
             {
-                double sum = 0;
-                using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
-                {
-                    while (!streamReader.EndOfStream)
-                    {
-                        if (streamReader.ReadLine() == wallet)
-                        {
-                            sum += double.Parse(streamReader.ReadLine() ?? "0");
-                        }
-                    }
-                    return sum;
-                }
+                return _walletSums[wallet];
             }
             catch (Exception ex)
             {
@@ -102,7 +91,7 @@ namespace CryptoWalletChecker
         {
             try
             {
-                return File.ReadLines(@"..\..\wallets.txt").Contains(wallet);
+                return _walletSums.ContainsKey(wallet);
             }
             catch (Exception ex)
             {
