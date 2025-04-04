@@ -87,7 +87,7 @@ namespace CryptoWalletChecker
         {
             try
             {
-                if(int.TryParse(textInput.Text, out int result))
+                if(double.TryParse(textInput.Text, out double result))
                 {
                     methodsServices.WriteToFile(result, textInput.Text);
                     methodsServices.SetVisibilityTrueFalse(CheckExistingWallet, RegisterNonexistentWallet);

@@ -12,16 +12,31 @@ namespace CryptoWalletChecker
     public class MethodsService : IMethodsServices
     {
         private ILogger<MethodsService> _logger;
+        private Dictionary<string, double> _walletSums = new();
         public MethodsService(Logger<MethodsService> logger)
         {
             _logger = logger;
         }
+        public void LoadWalletCache()
+        {
+            var lines = File.ReadAllLines(@"..\..\wallets.txt");
+            for (int i = 0; i < lines.Length; i+=2) 
+            {
+                if(double.TryParse(lines[i + 1], out double result))
+                {
+                    if (_walletSums.ContainsKey(lines[i]))
+                    {
+                        _walletSums[lines[i]] += result;
+                    }
+                    else
+                    {
+                        _walletSums[lines[i]]= result;
+                    }
+                }
+            }
+        }
         public bool IsSolanaWallet(string wallet)
         {
-            if (wallet.Length != 44 || String.IsNullOrEmpty(wallet))
-            {
-                return false;
-            }
             try
             {
                 PublicKey publicKey = new PublicKey(wallet);
@@ -33,7 +48,7 @@ namespace CryptoWalletChecker
             }
             return false;
         }
-        public void WriteToFile(int number, string wallet)
+        public void WriteToFile(double number, string wallet)
         {
             try
             {
@@ -48,18 +63,18 @@ namespace CryptoWalletChecker
                 _logger.LogError(ex, "Error in {MethodName}", nameof(WriteToFile));
             }
         }
-        public int GetTransactionSum(string wallet)
+        public double GetTransactionSum(string wallet)
         {
             try
             {
-                int sum = 0;
+                double sum = 0;
                 using (StreamReader streamReader = new StreamReader(@"..\..\wallets.txt"))
                 {
                     while (!streamReader.EndOfStream)
                     {
                         if (streamReader.ReadLine() == wallet)
                         {
-                            sum += int.Parse(streamReader.ReadLine() ?? "0");
+                            sum += double.Parse(streamReader.ReadLine() ?? "0");
                         }
                     }
                     return sum;
