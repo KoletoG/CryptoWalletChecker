@@ -57,6 +57,14 @@ namespace CryptoWalletChecker
                     streamWriter.WriteLine(wallet);
                     streamWriter.WriteLine(number);
                 }
+                if (_walletSums.ContainsKey(wallet))
+                {
+                    _walletSums[wallet] += number;
+                }
+                else
+                {
+                    _walletSums[wallet] = number;
+                }
             }
             catch (Exception ex)
             {
